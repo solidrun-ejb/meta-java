@@ -1,3 +1,4 @@
+require conf/distro/include/tcmode-default.inc
 # Icedtea's makefile is not compatible to parallelization so we cannot allow
 # passing a valid ${PARALLEL_MAKE} to it. OTOH OpenJDK's makefiles are
 # parallelizable and we need ${PARALLEL_MAKE} to derive the proper value.
