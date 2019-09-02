@@ -23,3 +23,20 @@ diff --git a/hotspot/src/share/vm/adlc/output_c.cpp b/hotspot/src/share/vm/adlc/
  
    static const char* pipeline_use_cycle_mask = "Pipeline_Use_Cycle_Mask";
    static const char* pipeline_use_element    = "Pipeline_Use_Element";
+diff --git openjdk/hotspot/src/share/vm/adlc/dfa.cpp openjdk/hotspot/src/share/vm/adlc/dfa.cpp
+index af18bee1..075e7c49 100644
+--- openjdk/hotspot/src/share/vm/adlc/dfa.cpp
++++ openjdk/hotspot/src/share/vm/adlc/dfa.cpp
+@@ -25,6 +25,12 @@
+ // DFA.CPP - Method definitions for outputting the matcher DFA from ADLC
+ #include "adlc.hpp"
+
++// disable format overflow checking for GCC versions
++// See https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html
++#if defined (__GNUC__) && __GNUC__ >= 7
++#pragma GCC diagnostic ignored "-Wstringop-overflow"
++#endif
++
+ //---------------------------Switches for debugging output---------------------
+ static bool debug_output   = false;
+ static bool debug_output1  = false;    // top level chain rules

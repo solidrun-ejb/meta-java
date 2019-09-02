@@ -39,3 +39,55 @@ diff --git openjdk/hotspot/src/share/vm/code/dependencies.cpp openjdk/hotspot/sr
  void Dependencies::write_dependency_to(CompileLog* log,
                                         DepType dept,
                                         int nargs, ciObject* args[],
+diff --git openjdk/hotspot/src/share/vm/adlc/dfa.cpp openjdk/hotspot/src/share/vm/adlc/dfa.cpp
+index af18bee1..075e7c49 100644
+--- openjdk/hotspot/src/share/vm/adlc/dfa.cpp
++++ openjdk/hotspot/src/share/vm/adlc/dfa.cpp
+@@ -25,6 +25,12 @@
+ // DFA.CPP - Method definitions for outputting the matcher DFA from ADLC
+ #include "adlc.hpp"
+
++// disable format overflow checking for GCC versions > 7
++// See https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html
++#if defined (__GNUC__) && __GNUC__ >= 7
++#pragma GCC diagnostic ignored "-Wstringop-overflow"
++#endif
++
+ //---------------------------Switches for debugging output---------------------
+ static bool debug_output   = false;
+ static bool debug_output1  = false;    // top level chain rules
+diff --git openjdk/hotspot/src/os_cpu/linux_x86/vm/os_linux_x86.cpp openjdk/hotspot/src/os_cpu/linux_x86/vm/os_linux_x86.cpp
+index ba484b9f..2bb51142 100644
+--- openjdk/hotspot/src/os_cpu/linux_x86/vm/os_linux_x86.cpp
++++ openjdk/hotspot/src/os_cpu/linux_x86/vm/os_linux_x86.cpp
+@@ -95,6 +95,12 @@
+ #define SPELL_REG_FP "ebp"
+ #endif // AMD64
+
++// disable warning about return type for GCC version > 7
++// See https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html
++#if defined (__GNUC__) && __GNUC__ >= 7
++#pragma GCC diagnostic ignored "-Wreturn-type"
++#endif
++
+ address os::current_stack_pointer() {
+ #ifdef SPARC_WORKS
+   register void *esp;
+diff --git openjdk/hotspot/src/share/vm/runtime/os.cpp openjdk/hotspot/src/share/vm/runtime/os.cpp
+index ddf4a50e..8f76b445 100644
+--- openjdk/hotspot/src/share/vm/runtime/os.cpp
++++ openjdk/hotspot/src/share/vm/runtime/os.cpp
+@@ -63,6 +63,13 @@
+
+ # include <signal.h>
+
++// disable warning about stringop overflow for GCC version > 7
++// See https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html
++#if defined (__GNUC__) && __GNUC__ >= 7
++#pragma GCC diagnostic ignored "-Wstringop-overflow"
++#endif
++
++
+ OSThread*         os::_starting_thread    = NULL;
+ address           os::_polling_page       = NULL;
+ volatile int32_t* os::_mem_serialize_page = NULL;
